@@ -2,11 +2,11 @@
 
 File converter from .csv to .xlsx & .xlxs to .csv
 ==============================================
-<b>Run the following commands to run python project</b>
+<b>Run the following commands to run python project</b><br>
 To setup python project run
    
-   pip install streamlit
+   pip install streamlit<br>
    streamlit --version
 
-To run the python project
+To run the python project <br>
    streamlit run app.py
