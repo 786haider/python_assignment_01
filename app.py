@@ -79,7 +79,7 @@ if uploaded_files:
                     label=f"⬇️ Downloaded {file.name} as {conversion_type}",
                     data=buffer,
                     file_name=file.name,
-                    mime_type=mime_type
+                    mime=mime_type
                 )
                 
             st.success("🎉 All files processed!")
