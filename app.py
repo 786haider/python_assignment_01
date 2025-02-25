@@ -64,22 +64,23 @@ if uploaded_files:
             if st.button(f"Convert {file.name}"):
                 buffer = BytesIO()
                 if conversion_type == 'CSV':
-                    df.to_csv(buffer, index=False)
+                    df.to_csv(buffer,index=False)
                     file.name = file.name.replace(file_ext,".csv")
                     mime_type = "text/csv"
                     
-                elif conversion_type == 'Excel':
-                    df.to_excel(buffer, index=False)
+                elif conversion_type == 'XLSX':
+                    df.to_excel(buffer,index=False)
                     file.name = file.name.replace(file_ext,".xlsx")
                     mime_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                 buffer.seek(0)     
                 
                 # Download button
+
             st.download_button(
                     label=f"⬇️ Downloaded {file.name} as {conversion_type}",
                     data=buffer,
                     file_name=file.name,
-                    mime=mime_type
+                    mime_type=mime_type
                 )
                 
             st.success("🎉 All files processed!")
