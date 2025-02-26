@@ -7,7 +7,7 @@ from io import BytesIO
 # Setup Our App
 st.set_page_config(page_title="First App", layout='wide')
 st.title('Hello World 👋')
-st.write('Tranform Your Files!')
+st.write('Transform Your Files!')
 
 uploaded_files = st.file_uploader("Upload your files here! 👇", type=["csv","xlsx"] , accept_multiple_files=True)
 
@@ -25,13 +25,13 @@ if uploaded_files:
         
         # Display info about the file
         st.write(f"**File Name:** {file.name}")
-        st.write(f"**File Size:** {file.size /1024} ")
+        st.write(f"**File Size:** {file.size /1024} KB")
         
         # Show 5 rows of our df
-        st.write("🔎 Preveiw the head of the Dataframe")
+        st.write("🔎 Preview the head of the Dataframe")
         st.dataframe(df.head())
         
-        #Options for data cleaning
+        # Options for data cleaning
         st.subheader("🧹 Data cleaning options")
         if st.checkbox(f"Clean data for {file.name}"):
             col1, col2 = st.columns(2)
@@ -42,46 +42,43 @@ if uploaded_files:
                     st.write(f"Duplicate removed from {file.name}")
                     
             with col2:
-             if st.button(f"Fill missing values for {file.name}"):
-                 numeric_cols = df.select_dtypes(include=['number']).columns
-                 df[numeric_cols] = df[numeric_cols].fillna(df[numeric_cols].mean())
-                 st.write(f"Missing values have been filled!")
+                if st.button(f"Fill missing values for {file.name}"):
+                    numeric_cols = df.select_dtypes(include=['number']).columns
+                    df[numeric_cols] = df[numeric_cols].fillna(df[numeric_cols].mean())
+                    st.write(f"Missing values have been filled!")
              
-        # Chose specific column to keep or convert   
+        # Choose specific column to keep or convert   
         st.subheader("📌 Select columns to convert")  
-        columns =st.multiselect(f"Chose columns for {file.name}", df.columns, default=df.columns)
+        columns = st.multiselect(f"Choose columns for {file.name}", df.columns, default=df.columns)
         df = df[columns]
         
-        
         # Create some visualizations
-        st.subheader("📉Data Visualizations")
-        if st.checkbox(f"Show visualization for {file.name}") :
+        st.subheader("📉 Data Visualizations")
+        if st.checkbox(f"Show visualization for {file.name}"):
             st.bar_chart(df.select_dtypes(include='number').iloc[:,:2])
             
             # Convert the file --> CSV to Excel
             st.subheader('⏳ Conversion Option')
-            conversion_type = st.radio(f"Convert {file.name} to:", ['CSV', 'Excel'], key=file.name)
+            conversion_type = st.radio(f"Convert {file.name} to:", ['CSV', 'XLSX'], key=file.name)
             if st.button(f"Convert {file.name}"):
                 buffer = BytesIO()
                 if conversion_type == 'CSV':
-                    df.to_csv(buffer,index=False)
-                    file.name = file.name.replace(file_ext,".csv")
+                    df.to_csv(buffer, index=False)
+                    file.name = file.name.replace(file_ext, ".csv")
                     mime_type = "text/csv"
                     
                 elif conversion_type == 'XLSX':
-                    df.to_excel(buffer,index=False)
-                    file.name = file.name.replace(file_ext,".xlsx")
+                    df.to_excel(buffer, index=False)
+                    file.name = file.name.replace(file_ext, ".xlsx")
                     mime_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                 buffer.seek(0)     
                 
                 # Download button
-
-            st.download_button(
-                    label=f"⬇️ Downloaded {file.name} as {conversion_type}",
+                st.download_button(
+                    label=f"⬇️ Download {file.name} as {conversion_type}",
                     data=buffer,
-                    file_name=file.name,
-                    mime_type=mime_type
+                    file_name=file.name
                 )
+
                 
-            st.success("🎉 All files processed!")
-                               
+                st.success("🎉 All files processed!")
