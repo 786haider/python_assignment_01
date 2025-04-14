@@ -7,6 +7,9 @@ from io import BytesIO
 st.set_page_config(page_icon="♻",page_title="My File Converter", layout='wide')
 st.title('Hello World 👋')
 st.write('Transform Your Files!')
+st.markdown("---")
+st.markdown("This app is for converting .csv to .xlsx and .xlsx to .csv")
+st.markdown("Developer :[Haider Hussain](https://github.com/786haider/python_assignment_01.git)")
 
 uploaded_files = st.file_uploader("Upload your files here! 👇", type=["csv","xlsx"] , accept_multiple_files=True)
 
