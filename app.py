@@ -5,7 +5,7 @@ import os
 from io import BytesIO
 
 # Setup Our App
-st.set_page_config(page_title="First App", layout='wide')
+st.set_page_config(page_title="My File Converter", layout='wide')
 st.title('Hello World 👋')
 st.write('Transform Your Files!')
 
